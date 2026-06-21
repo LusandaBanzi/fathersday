@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Father's Day</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:wght@400;600&family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/moonwalk" rel="stylesheet">
+
+<style>
+
+:root{
+    --yellow:#f5c518;
+    --gold:#f7d774;
+    --bg:#111;
+    --text:#fff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body,html{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#111;
+    color:white;
+    font-family:'Oswald',sans-serif;
+}
+
+.page{
+    position:fixed;
+    inset:0;
+    opacity:0;
+    pointer-events:none;
+    transition:1s;
+}
+
+.page.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* PAGE 1 */
+
+#page1{
+    background:
+    radial-gradient(circle at top left,rgba(255,255,255,.08),transparent 40%),
+    radial-gradient(circle at bottom right,rgba(255,255,255,.05),transparent 40%),
+    #111;
+}
+
+.brand-bar{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:20px;
+}
+
+.brand-logo{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    overflow:hidden;
+}
+
+.brand-logo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.brand-name{
+    font-family:'Moonwalk',sans-serif;
+    font-size:clamp(25px,4vw,45px);
+
+    background:linear-gradient(#fff,#f7d774,#bf8a1f);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.welcome-stage{
+    height:70%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.welcome-line{
+    font-family:'Anton',sans-serif;
+    color:var(--yellow);
+    font-size:clamp(50px,10vw,130px);
+    opacity:0;
+}
+
+.welcome-sub{
+    margin-top:20px;
+    font-size:clamp(18px,3vw,35px);
+    opacity:0;
+}
+
+@keyframes reveal{
+    from{
+        opacity:0;
+        transform:translateY(80px);
+        filter:blur(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+        filter:blur(0);
+    }
+}
+
+@keyframes glow{
+    0%,100%{
+        text-shadow:0 0 10px rgba(245,197,24,.4);
+    }
+
+    50%{
+        text-shadow:
+        0 0 25px rgba(245,197,24,.9),
+        0 0 60px rgba(245,197,24,.6);
+    }
+}
+
+.footer{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    text-align:center;
+    letter-spacing:4px;
+}
+
+/* PAGE 2 */
+
+#page2{
+    background:
+    radial-gradient(circle,#222 0%,#000 100%);
+}
+
+.quote-stage{
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+}
+
+.quote-card{
+    max-width:900px;
+}
+
+.quote-key{
+    font-size:clamp(60px,10vw,140px);
+    font-family:'Cinzel',serif;
+
+    background:linear-gradient(#fff,#f7d774,#bf8a1f);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.quote-line{
+    font-size:clamp(20px,4vw,45px);
+    margin-top:15px;
+    opacity:0;
+}
+
+.quote-ref{
+    margin-top:25px;
+    color:var(--gold);
+    font-size:24px;
+    letter-spacing:4px;
+}
+
+.quote-card.in .quote-line{
+    animation:slideIn .8s forwards;
+}
+
+.quote-card.in .quote-line:nth-child(1){animation-delay:.2s;}
+.quote-card.in .quote-line:nth-child(2){animation-delay:.4s;}
+.quote-card.in .quote-line:nth-child(3){animation-delay:.6s;}
+
+@keyframes slideIn{
+    from{
+        opacity:0;
+        transform:translateX(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+/* FINAL SCREEN */
+
+#finalWelcome{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    z-index:9999;
+    opacity:0;
+    visibility:hidden;
+    transition:2s;
+}
+
+#finalWelcome.show{
+    opacity:1;
+    visibility:visible;
+}
+
+.final-content h1{
+    color:var(--yellow);
+    font-size:clamp(50px,8vw,150px);
+
+    animation:glow 4s infinite;
+}
+
+.final-content p{
+    margin-top:30px;
+    font-size:clamp(18px,3vw,35px);
+    line-height:1.8;
+    padding:20px;
+}
+
+/* DUST */
+
+.dust{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+.dust span{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:gold;
+    border-radius:50%;
+    animation:floatUp linear infinite;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+
+<section id="page1" class="page active">
+
+<header class="brand-bar">
+
+<div class="brand-logo">
+<img src="pcglogo.jpg" alt="">
+</div>
+
+<div class="brand-name">
+The Pentecostal Church Of God
+</div>
+
+</header>
+
+<div class="welcome-stage">
+
+<div class="welcome-line" id="w1">
+HAPPY
+</div>
+
+<div class="welcome-line" id="w2">
+FATHER'S DAY
+</div>
+
+<div class="welcome-sub" id="w3">
+Celebrating The Heroes We Call Dad
+</div>
+
+</div>
+
+<div class="dust" id="dust"></div>
+
+<div class="footer">
+A DAY TO HONOUR OUR FATHERS
+</div>
+
+</section>
+
+<!-- PAGE 2 -->
+
+<section id="page2" class="page">
+
+<div class="quote-stage">
+
+<div class="quote-card" id="quoteCard">
+
+<div class="quote-key" id="qKey">
+DAD
+</div>
+
+<div id="qBody"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FINAL -->
+
+<div id="finalWelcome">
+
+<div class="final-content">
+
+<h1>HAPPY FATHER'S DAY</h1>
+
+<p>
+Dad, your love, wisdom and strength inspire us every day.<br>
+Thank you for every sacrifice, every prayer and every word of encouragement.<br><br>
+May God richly bless you today and always.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+/* WELCOME ANIMATION */
+
+setTimeout(()=>{
+document.getElementById("w1").style.animation=
+"reveal 1.5s forwards, glow 5s infinite";
+},300);
+
+setTimeout(()=>{
+document.getElementById("w2").style.animation=
+"reveal 1.5s forwards, glow 5s infinite";
+},1200);
+
+setTimeout(()=>{
+document.getElementById("w3").style.animation=
+"reveal 1.5s forwards";
+},2200);
+
+
+/* DUST */
+
+const dust=document.getElementById("dust");
+
+for(let i=0;i<50;i++){
+
+let s=document.createElement("span");
+
+s.style.left=Math.random()*100+"%";
+s.style.bottom="-10px";
+s.style.animationDuration=(5+Math.random()*10)+"s";
+s.style.animationDelay=Math.random()*10+"s";
+
+dust.appendChild(s);
+}
+
+
+/* QUOTES */
+
+const QUOTES=[
+
+{
+key:"DAD",
+lines:[
+"TODAY WE HONOUR YOU",
+"FOR YOUR LOVE AND STRENGTH",
+"THANK YOU FOR EVERYTHING"
+],
+ref:"Happy Father's Day"
+},
+
+{
+key:"THANK YOU",
+lines:[
+"FOR ALWAYS BEING THERE",
+"FOR YOUR GUIDANCE",
+"AND YOUR SUPPORT"
+],
+ref:"You Are Appreciated"
+},
+
+{
+key:"YOUR LOVE",
+lines:[
+"HAS SHAPED OUR LIVES",
+"INSPIRED OUR DREAMS",
+"AND GIVEN US HOPE"
+],
+ref:"Thank You Dad"
+},
+
+{
+key:"BLESSINGS",
+lines:[
+"MAY GOD BLESS YOU",
+"WITH JOY, PEACE",
+"AND GOOD HEALTH"
+],
+ref:"Numbers 6:24-26"
+},
+
+{
+key:"SPECIAL MESSAGE",
+lines:[
+"A FATHER IS SOMEONE",
+"YOU LOOK UP TO",
+"NO MATTER HOW TALL YOU GROW"
+],
+ref:"Forever Loved"
+}
+
+];
+
+let qIndex=0;
+
+const qKey=document.getElementById("qKey");
+const qBody=document.getElementById("qBody");
+const quoteCard=document.getElementById("quoteCard");
+
+function renderQuote(){
+
+const q=QUOTES[qIndex];
+
+qKey.textContent=q.key;
+
+qBody.innerHTML="";
+
+q.lines.forEach(line=>{
+
+const div=document.createElement("div");
+div.className="quote-line";
+div.textContent=line;
+
+qBody.appendChild(div);
+
+});
+
+const ref=document.createElement("div");
+ref.className="quote-ref";
+ref.textContent=q.ref;
+
+qBody.appendChild(ref);
+
+quoteCard.classList.remove("in");
+
+void quoteCard.offsetWidth;
+
+quoteCard.classList.add("in");
+}
+
+renderQuote();
+
+function nextQuote(){
+
+qIndex++;
+
+if(qIndex>=QUOTES.length){
+qIndex=0;
+}
+
+renderQuote();
+}
+
+setInterval(nextQuote,5000);
+
+
+/* PAGE SWITCH */
+
+const page1=document.getElementById("page1");
+const page2=document.getElementById("page2");
+
+setTimeout(()=>{
+
+page1.classList.remove("active");
+page2.classList.add("active");
+
+},7000);
+
+
+/* FINAL SCREEN */
+
+setTimeout(()=>{
+
+document.getElementById("finalWelcome")
+.classList.add("show");
+
+},35000);
+
+</script>
+
+</body>
+</html>
